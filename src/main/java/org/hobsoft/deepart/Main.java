@@ -1,7 +1,9 @@
 package org.hobsoft.deepart;
 
 import io.jenetics.Genotype;
+import io.jenetics.Mutator;
 import io.jenetics.Phenotype;
+import io.jenetics.SinglePointCrossover;
 import io.jenetics.engine.Engine;
 import io.jenetics.util.Factory;
 
@@ -28,6 +30,11 @@ public class Main
 		
 		Engine<BrushstrokeGene, Integer> engine = Engine.builder(Main::fitness, genotypeFactory)
 			.populationSize(POPULATION_SIZE)
+			.alterers(
+				new SinglePointCrossover<>(0.2),
+				new Mutator<>(0.15),
+				new BrushstrokeMutator<>(0.025, 0.15)
+			)
 			.build();
 		
 		Phenotype<BrushstrokeGene, Integer> fittest = engine.stream()

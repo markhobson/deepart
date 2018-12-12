@@ -14,14 +14,20 @@ public final class Brushstroke
 	
 	private final double radius;
 	
-	private final Color color;
+	private final double red;
 	
-	public Brushstroke(double x, double y, double radius, Color color)
+	private final double green;
+	
+	private final double blue;
+	
+	public Brushstroke(double x, double y, double radius, double red, double green, double blue)
 	{
 		this.x = x;
 		this.y = y;
 		this.radius = radius;
-		this.color = color;
+		this.red = red;
+		this.green = green;
+		this.blue = blue;
 	}
 	
 	public static Brushstroke random(Random random)
@@ -29,14 +35,46 @@ public final class Brushstroke
 		double x = random.nextDouble();
 		double y = random.nextDouble();
 		double radius = random.nextDouble() * MAX_RADIUS;
-		Color color = new Color(random.nextInt(256), random.nextInt(256), random.nextInt(256));
+		double red = random.nextDouble();
+		double green = random.nextDouble();
+		double blue = random.nextDouble();
 		
-		return new Brushstroke(x, y, radius, color);
+		return new Brushstroke(x, y, radius, red, green, blue);
+	}
+	
+	public double x()
+	{
+		return x;
+	}
+	
+	public double y()
+	{
+		return y;
+	}
+	
+	public double radius()
+	{
+		return radius;
+	}
+	
+	public double red()
+	{
+		return red;
+	}
+	
+	public double green()
+	{
+		return green;
+	}
+	
+	public double blue()
+	{
+		return blue;
 	}
 	
 	public Color color()
 	{
-		return color;
+		return new Color((float) red, (float) green, (float) blue);
 	}
 	
 	public void paint(Graphics graphics)
@@ -44,13 +82,13 @@ public final class Brushstroke
 		int width = graphics.getClipBounds().width;
 		int height = graphics.getClipBounds().height;
 		
-		graphics.setColor(color);
+		graphics.setColor(color());
 		graphics.fillOval((int) (x * width), (int) (y * height), (int) (radius * width), (int) (radius * height));
 	}
 	
 	@Override
 	public String toString()
 	{
-		return String.format("(%.2f,%.2f,%.2f,#%s)", x, y, radius, Integer.toHexString(color.getRGB() & 0xFFFFFF));
+		return String.format("(%.2f,%.2f,%.2f,#%s)", x, y, radius, Integer.toHexString(color().getRGB() & 0xFFFFFF));
 	}
 }
