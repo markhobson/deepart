@@ -1,12 +1,15 @@
 package org.hobsoft.deepart;
 
-import java.util.stream.Collectors;
-
 import io.jenetics.Genotype;
+import io.jenetics.Phenotype;
 import io.jenetics.engine.Engine;
 import io.jenetics.util.Factory;
 
-import static io.jenetics.engine.EvolutionResult.toBestGenotype;
+import static java.util.stream.Collectors.toList;
+
+import static javax.swing.SwingUtilities.invokeLater;
+
+import static io.jenetics.engine.EvolutionResult.toBestPhenotype;
 
 public class Main
 {
@@ -27,17 +30,12 @@ public class Main
 			.populationSize(POPULATION_SIZE)
 			.build();
 		
-		Genotype<BrushstrokeGene> fittest = engine.stream()
+		Phenotype<BrushstrokeGene, Integer> fittest = engine.stream()
 			.limit(MAX_GENERATIONS)
-			.collect(toBestGenotype());
+			.peek(result -> invokeLater(() -> frame.setArtwork(toArtwork(result.getBestPhenotype()))))
+			.collect(toBestPhenotype());
 		
-		Artwork artwork = new Artwork(fittest.getChromosome()
-			.stream()
-			.map(BrushstrokeGene::getAllele)
-			.collect(Collectors.toList())
-		);
-		
-		frame.setArtwork(artwork);
+		System.out.println(fittest.getFitness());
 	}
 	
 	private static int fitness(Genotype<BrushstrokeGene> genotype)
@@ -46,5 +44,16 @@ public class Main
 			.map(gene -> gene.getAllele().color())
 			.mapToInt(color -> color.getRed() - color.getGreen() - color.getBlue())
 			.sum();
+	}
+	
+	private static Artwork toArtwork(Phenotype<BrushstrokeGene, Integer> fittest)
+	{
+		return new Artwork(fittest
+			.getGenotype()
+			.getChromosome()
+			.stream()
+			.map(BrushstrokeGene::getAllele)
+			.collect(toList())
+		);
 	}
 }
