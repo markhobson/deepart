@@ -7,6 +7,8 @@ import io.jenetics.Mutator;
 import io.jenetics.MutatorResult;
 import io.jenetics.util.RandomRegistry;
 
+import static org.hobsoft.deepart.Brushstroke.MAX_RADIUS;
+
 public class BrushstrokeMutator<C extends Comparable<? super C>> extends Mutator<BrushstrokeGene, C>
 {
 	private final double rate;
@@ -36,7 +38,7 @@ public class BrushstrokeMutator<C extends Comparable<? super C>> extends Mutator
 		return gene.newInstance(new Brushstroke(
 			mutate(stroke.x()),
 			mutate(stroke.y()),
-			mutate(stroke.radius()),
+			Math.min(mutate(stroke.radius()), MAX_RADIUS),
 			mutate(stroke.red()),
 			mutate(stroke.green()),
 			mutate(stroke.blue())

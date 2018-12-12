@@ -6,7 +6,7 @@ import java.util.Random;
 
 public final class Brushstroke
 {
-	private static final double MAX_RADIUS = 0.1;
+	public static final double MAX_RADIUS = 0.1;
 	
 	private final double x;
 	
