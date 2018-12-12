@@ -47,4 +47,10 @@ public final class Brushstroke
 		graphics.setColor(color);
 		graphics.fillOval((int) (x * width), (int) (y * height), (int) (radius * width), (int) (radius * height));
 	}
+	
+	@Override
+	public String toString()
+	{
+		return String.format("(%.2f,%.2f,%.2f,#%s)", x, y, radius, Integer.toHexString(color.getRGB() & 0xFFFFFF));
+	}
 }

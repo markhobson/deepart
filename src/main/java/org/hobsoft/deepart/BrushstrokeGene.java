@@ -49,4 +49,10 @@ public final class BrushstrokeGene implements Gene<Brushstroke, BrushstrokeGene>
 	{
 		return true;
 	}
+	
+	@Override
+	public String toString()
+	{
+		return stroke.toString();
+	}
 }
