@@ -7,7 +7,7 @@ import java.util.List;
 import static java.awt.Color.BLACK;
 import static java.util.Collections.emptyList;
 
-public class Artwork
+public final class Artwork
 {
 	private final List<Brushstroke> strokes;
 	

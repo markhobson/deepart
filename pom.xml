@@ -29,5 +29,28 @@
 		</pluginManagement>
 	
 	</build>
+	
+	<dependencyManagement>
+		
+		<dependencies>
+			
+			<dependency>
+				<groupId>io.jenetics</groupId>
+				<artifactId>jenetics</artifactId>
+				<version>4.3.0</version>
+			</dependency>
+			
+		</dependencies>
+		
+	</dependencyManagement>
+	
+	<dependencies>
+		
+		<dependency>
+			<groupId>io.jenetics</groupId>
+			<artifactId>jenetics</artifactId>
+		</dependency>
+	
+	</dependencies>
 
 </project>
