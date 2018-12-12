@@ -2,6 +2,7 @@ package org.hobsoft.deepart;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.util.Random;
 
 public final class Brushstroke
@@ -77,18 +78,15 @@ public final class Brushstroke
 		return new Color((float) red, (float) green, (float) blue);
 	}
 	
-	public void paint(Graphics graphics)
+	public void paint(Graphics2D graphics, int width, int height)
 	{
-		int canvasWidth = graphics.getClipBounds().width;
-		int canvasHeight = graphics.getClipBounds().height;
-		
-		int x0 = (int) ((x - radius) * canvasWidth);
-		int y0 = (int) ((y - radius) * canvasHeight);
-		int width = (int) (2 * radius * canvasWidth);
-		int height = (int) (2 * radius * canvasHeight);
+		int x0 = (int) ((x - radius) * width);
+		int y0 = (int) ((y - radius) * height);
+		int w = (int) (2 * radius * width);
+		int h = (int) (2 * radius * height);
 		
 		graphics.setColor(color());
-		graphics.fillOval(x0, y0, width, height);
+		graphics.fillOval(x0, y0, w, h);
 	}
 	
 	@Override

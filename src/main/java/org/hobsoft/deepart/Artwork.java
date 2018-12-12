@@ -1,6 +1,7 @@
 package org.hobsoft.deepart;
 
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,17 +22,14 @@ public final class Artwork
 		this.strokes = new ArrayList<>(strokes);
 	}
 	
-	public void paint(Graphics graphics)
+	public void paint(Graphics2D graphics, int width, int height)
 	{
-		int width = graphics.getClipBounds().width;
-		int height = graphics.getClipBounds().height;
-		
-		graphics.setColor(BLACK);
-		graphics.fillRect(0, 0, width, height);
+		graphics.setBackground(BLACK);
+		graphics.clearRect(0, 0, width, height);
 		
 		for (Brushstroke stroke : strokes)
 		{
-			stroke.paint(graphics);
+			stroke.paint(graphics, width, height);
 		}
 	}
 }

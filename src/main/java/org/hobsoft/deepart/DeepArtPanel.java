@@ -2,20 +2,20 @@ package org.hobsoft.deepart;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
 
 import javax.swing.JComponent;
 
 public class DeepArtPanel extends JComponent
 {
-	private static final int SIZE = 32;
-	
-	private static final int SCALE = 20;
+	private static final int SIZE = 32 * 20;
 	
 	private Artwork artwork;
 	
 	public DeepArtPanel()
 	{
-		setPreferredSize(new Dimension(SIZE * SCALE, SIZE * SCALE));
+		setPreferredSize(new Dimension(SIZE, SIZE));
 	}
 	
 	public void setArtwork(Artwork artwork)
@@ -29,7 +29,7 @@ public class DeepArtPanel extends JComponent
 	{
 		if (artwork != null)
 		{
-			artwork.paint(graphics);
+			artwork.paint((Graphics2D) graphics, getWidth(), getHeight());
 		}
 	}
 }
