@@ -15,11 +15,11 @@ import static io.jenetics.engine.EvolutionResult.toBestPhenotype;
 
 public class Main
 {
-	private static final int MAX_GENERATIONS = 1000;
+	private static final int MAX_GENERATIONS = 5000;
 	
 	private static final int POPULATION_SIZE = 100;
 	
-	private static final int BRUSHSTROKES = 10;
+	private static final int BRUSHSTROKES = 100;
 	
 	public static void main(String[] args)
 	{
