@@ -5,7 +5,6 @@ import io.jenetics.Mutator;
 import io.jenetics.Phenotype;
 import io.jenetics.SinglePointCrossover;
 import io.jenetics.engine.Engine;
-import io.jenetics.util.Factory;
 
 import static java.util.stream.Collectors.toList;
 
@@ -26,9 +25,16 @@ public class Main
 		DeepArtFrame frame = new DeepArtFrame();
 		frame.setVisible(true);
 		
-		Factory<Genotype<BrushstrokeGene>> genotypeFactory = Genotype.of(ArtworkChromosome.of(BRUSHSTROKES));
-		
-		Engine<BrushstrokeGene, Integer> engine = Engine.builder(Main::fitness, genotypeFactory)
+		createEngine()
+			.stream()
+			.limit(MAX_GENERATIONS)
+			.peek(result -> invokeLater(() -> frame.setArtwork(toArtwork(result.getBestPhenotype()))))
+			.collect(toBestPhenotype());
+	}
+	
+	private static Engine<BrushstrokeGene, Integer> createEngine()
+	{
+		return Engine.builder(Main::fitness, Genotype.of(ArtworkChromosome.of(BRUSHSTROKES)))
 			.populationSize(POPULATION_SIZE)
 			.alterers(
 				new SinglePointCrossover<>(0.2),
@@ -36,13 +42,6 @@ public class Main
 				new BrushstrokeMutator<>(0.025, 0.15)
 			)
 			.build();
-		
-		Phenotype<BrushstrokeGene, Integer> fittest = engine.stream()
-			.limit(MAX_GENERATIONS)
-			.peek(result -> invokeLater(() -> frame.setArtwork(toArtwork(result.getBestPhenotype()))))
-			.collect(toBestPhenotype());
-		
-		System.out.println(fittest.getFitness());
 	}
 	
 	private static int fitness(Genotype<BrushstrokeGene> genotype)
