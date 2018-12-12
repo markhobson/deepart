@@ -79,11 +79,16 @@ public final class Brushstroke
 	
 	public void paint(Graphics graphics)
 	{
-		int width = graphics.getClipBounds().width;
-		int height = graphics.getClipBounds().height;
+		int canvasWidth = graphics.getClipBounds().width;
+		int canvasHeight = graphics.getClipBounds().height;
+		
+		int x0 = (int) ((x - radius) * canvasWidth);
+		int y0 = (int) ((y - radius) * canvasHeight);
+		int width = (int) (2 * radius * canvasWidth);
+		int height = (int) (2 * radius * canvasHeight);
 		
 		graphics.setColor(color());
-		graphics.fillOval((int) (x * width), (int) (y * height), (int) (radius * width), (int) (radius * height));
+		graphics.fillOval(x0, y0, width, height);
 	}
 	
 	@Override
