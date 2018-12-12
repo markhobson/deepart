@@ -3,7 +3,6 @@ package org.hobsoft.deepart;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.geom.AffineTransform;
 
 import javax.swing.JComponent;
 
@@ -30,6 +29,8 @@ public class DeepArtPanel extends JComponent
 		if (artwork != null)
 		{
 			artwork.paint((Graphics2D) graphics, getWidth(), getHeight());
+			graphics.drawImage(Main.IMAGE, 0, 0, this);
+			graphics.drawImage(Main.GENOTYPE_IMAGE, 32, 0, this);
 		}
 	}
 }
