@@ -17,6 +17,8 @@ public class BrushstrokeMutator<C extends Comparable<? super C>> extends Mutator
 	
 	public BrushstrokeMutator(double rate, double magnitude)
 	{
+		super(1.0);
+		
 		this.rate = rate;
 		this.magnitude = magnitude;
 	}
