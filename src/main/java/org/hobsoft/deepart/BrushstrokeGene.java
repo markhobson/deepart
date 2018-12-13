@@ -3,9 +3,10 @@ package org.hobsoft.deepart;
 import io.jenetics.Gene;
 import io.jenetics.util.ISeq;
 import io.jenetics.util.MSeq;
+import io.jenetics.util.Mean;
 import io.jenetics.util.RandomRegistry;
 
-public final class BrushstrokeGene implements Gene<Brushstroke, BrushstrokeGene>
+public final class BrushstrokeGene implements Gene<Brushstroke, BrushstrokeGene>, Mean<BrushstrokeGene>
 {
 	private final Brushstroke stroke;
 	
@@ -48,6 +49,12 @@ public final class BrushstrokeGene implements Gene<Brushstroke, BrushstrokeGene>
 	public boolean isValid()
 	{
 		return true;
+	}
+	
+	@Override
+	public BrushstrokeGene mean(BrushstrokeGene that)
+	{
+		return of(getAllele().mean(that.getAllele()));
 	}
 	
 	@Override
